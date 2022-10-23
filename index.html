@@ -1,5 +1,5 @@
-<script src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
-<script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+<script src="assets\JS\aframe-master.min.js"></script>
+<script src="assets\JS\aframe-ar-nft.js"></script>
 
 <script>
   window.onload = function () {
@@ -9,22 +9,33 @@
       },
       init: function () {
         var marker = this.el;
-        this.vid = this.data.video;
+        var videoPlayer = document.getElementById('VideoPlayer');
+        var btnClose = document.getElementById('Close');
 
         marker.addEventListener(
           'markerFound',
           function () {
-            this.vid.play();
-          }.bind(this)
-        );
+            this.setVideoPlayer('visible');
+            videoPlayer.setAttribute(
+              'src',
+              this.data.video.getAttribute('src')
+            );
 
-        marker.addEventListener(
-          'markerLost',
-          function () {
-            this.vid.pause();
-            this.vid.currentTime = 0;
+            btnClose.addEventListener('click', () => {
+              videoPlayer.pause();
+              videoPlayer.currentTime = 0;
+              this.setVideoPlayer('hidden');
+            });
+
+            videoPlayer.addEventListener('ended', () => {
+              setTimeout(() => this.setVideoPlayer('hidden'), 500);
+            });
           }.bind(this)
         );
+      },
+
+      setVideoPlayer(visibility) {
+        document.getElementById('VideoWrapper').style.visibility = visibility;
       },
     });
   };
@@ -49,6 +60,15 @@
     font-size: 1.25em;
     color: white;
   }
+
+  .close:after {
+    content: '\00d7'; /* This will render the 'X' */
+    font-size: 36px;
+    color: white;
+    display: inline-block;
+    width: 50px;
+    cursor: pointer;
+  }
 </style>
 
 <body style="margin: 0px; overflow: hidden">
@@ -57,7 +77,6 @@
   </div>
   <a-scene
     vr-mode-ui="enabled: false;"
-    renderer="antialias: true; alpha: true; precision: medium;"
     embedded
     arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
   >
@@ -87,41 +106,44 @@
     <a-nft
       videohandler="video: #scream"
       type="nft"
-      url="assets\NFT\scream\scream"
+      url="assets\nft\scream\description"
       smooth="true"
       smoothCount="10"
       smoothTolerance="0.01"
       smoothThreshold="5"
     >
-      <a-video
-        src="#scream"
-        position="50 150 -100"
-        rotation="90 0 180"
-        width="300"
-        height="175"
-      >
-      </a-video>
     </a-nft>
 
     <a-nft
       videohandler="video: #pinball"
       type="nft"
-      url="assets\NFT\pinball\pinball"
+      url="assets\nft\pinball\description"
       smooth="true"
       smoothCount="10"
       smoothTolerance="0.01"
       smoothThreshold="5"
     >
-      <a-video
-        src="#pinball"
-        position="50 150 -100"
-        rotation="90 0 180"
-        width="300"
-        height="175"
-      >
-      </a-video>
-      <!-- <a-box position="1 0 0" material="src: #pinball"></a-box> -->
     </a-nft>
     <a-entity camera></a-entity>
   </a-scene>
+  <div
+    id="VideoWrapper"
+    style="
+      visibility: hidden;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 50%;
+      text-align: center;
+      z-index: 1;
+      background-color: black;
+    "
+  >
+    <div
+      id="Close"
+      class="button close"
+      style="position: absolute; right: 2%; top: 5%"
+    ></div>
+    <video id="VideoPlayer" width="auto" height="100%" controls></video>
+  </div>
 </body>
