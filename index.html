@@ -61,6 +61,23 @@
     color: white;
   }
 
+  #VideoWrapper {
+    visibility: hidden;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    z-index: 1;
+  }
+
+  .close {
+    position: absolute;
+    right: 1%;
+    top: 3%;
+    z-index: inherit;
+  }
+
   .close:after {
     content: '\00d7'; /* This will render the 'X' */
     font-size: 36px;
@@ -77,40 +94,19 @@
   </div>
   <a-scene
     vr-mode-ui="enabled: false;"
+    renderer="antialias: true; alpha: true; precision: medium;"
     embedded
     arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
   >
     <a-assets>
-      <video
-        src="assets\video\scream.mp4"
-        preload="auto"
-        id="scream"
-        response-type="arraybuffer"
-        loop
-        crossorigin
-        webkit-playsinline
-        playsinline
-      ></video>
-      <video
-        src="assets\video\pinball.mp4"
-        preload="auto"
-        id="pinball"
-        response-type="arraybuffer"
-        loop
-        crossorigin
-        webkit-playsinline
-        playsinline
-      ></video>
+      <video id="scream" src="assets\video\scream.mp4"></video>
+      <video id="pinball" src="assets\video\pinball.mp4"></video>
     </a-assets>
 
     <a-nft
       videohandler="video: #scream"
       type="nft"
       url="assets\nft\scream\description"
-      smooth="true"
-      smoothCount="10"
-      smoothTolerance="0.01"
-      smoothThreshold="5"
     >
     </a-nft>
 
@@ -118,31 +114,23 @@
       videohandler="video: #pinball"
       type="nft"
       url="assets\nft\pinball\description"
-      smooth="true"
-      smoothCount="10"
-      smoothTolerance="0.01"
-      smoothThreshold="5"
     >
     </a-nft>
     <a-entity camera></a-entity>
   </a-scene>
-  <div
-    id="VideoWrapper"
-    style="
-      visibility: hidden;
-      position: fixed;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      background-color: black;
-      z-index: 1;
-    "
-  >
-    <div
-      id="Close"
-      class="button close"
-      style="position: absolute; right: 1%; top: 3%; z-index: inherit"
-    ></div>
-    <video id="VideoPlayer" width="100%" height="auto" controls></video>
+  <div id="VideoWrapper">
+    <div id="Close" class="button close"></div>
+    <video
+      id="VideoPlayer"
+      width="100%"
+      height="auto"
+      controls
+      preload="auto"
+      autoplay
+      response-type="arraybuffer"
+      crossorigin
+      webkit-playsinline
+      playsinline
+    ></video>
   </div>
 </body>
