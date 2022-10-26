@@ -11,7 +11,6 @@
         var marker = this.el;
         var videoPlayer = document.getElementById('VideoPlayer');
         var btnClose = document.getElementById('Close');
-
         marker.addEventListener(
           'markerFound',
           function () {
@@ -64,26 +63,35 @@
   #VideoWrapper {
     visibility: hidden;
     position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: black;
+    left: 50%;
+    bottom: 5%;
+    transform: translateX(-50%);
+    width: 90%;
     z-index: 1;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   }
 
-  .close {
+  #Close {
     position: absolute;
-    right: 1%;
-    top: 3%;
+    right: 0;
+    top: -50px;
+    right: -10px;
     z-index: inherit;
+    background-color: gray;
+    opacity: 0.6;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    text-align: center;
   }
 
   .close:after {
     content: '\00d7'; /* This will render the 'X' */
     font-size: 36px;
+    font-weight: 800;
+    line-height: 40px;
     color: white;
     display: inline-block;
-    width: 50px;
     cursor: pointer;
   }
 </style>
@@ -105,8 +113,6 @@
         id="scream"
         response-type="arraybuffer"
         crossorigin
-        webkit-playsinline
-        playsinline
       ></video>
       <video
         src="assets\video\pinball.mp4"
@@ -114,11 +120,7 @@
         id="pinball"
         response-type="arraybuffer"
         crossorigin
-        webkit-playsinline
-        playsinline
       ></video>
-      <video id="scream" src="assets\video\scream.mp4"></video>
-      <video id="pinball" src="assets\video\pinball.mp4"></video>
     </a-assets>
 
     <a-nft
@@ -134,21 +136,23 @@
       url="assets\nft\pinball\description"
     >
     </a-nft>
+
     <a-entity camera></a-entity>
   </a-scene>
   <div id="VideoWrapper">
-    <div id="Close" class="button close"></div>
-    <video
-      id="VideoPlayer"
-      width="100%"
-      height="auto"
-      controls
-      preload="auto"
-      autoplay
-      response-type="arraybuffer"
-      crossorigin
-      webkit-playsinline
-      playsinline
-    ></video>
+    <div id="Close"><i class="close"></i></div>
+    <div>
+      <video
+        id="VideoPlayer"
+        style="border-radius: 0.5rem; background-color: black; opacity: 0.6"
+        width="100%"
+        height="auto"
+        controls
+        autoplay
+        muted
+        response-type="arraybuffer"
+        crossorigin
+      ></video>
+    </div>
   </div>
 </body>
