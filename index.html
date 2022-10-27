@@ -1,43 +1,46 @@
-<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-
-<script src="assets\JS\aframe-master.min.js"></script>
-<script src="assets\JS\aframe-ar-nft.js"></script>
-
-<script>
-  window.onload = function () {
-    AFRAME.registerComponent('videohandler', {
-      schema: {
-        video: { type: 'selector' },
-      },
-      init: function () {
-        var marker = this.el;
-        var videoPlayer = document.getElementById('VideoPlayer');
-        var btnClose = document.getElementById('Close');
-        marker.addEventListener(
-          'markerFound',
-          function () {
-            this.setVideoPlayer('visible');
-            videoPlayer.setAttribute(
-              'src',
-              this.data.video.getAttribute('src')
-            );
-
-            btnClose.addEventListener('click', () => {
-              videoPlayer.pause();
-              videoPlayer.currentTime = 0;
-              this.setVideoPlayer('hidden');
-            });
-
-          }.bind(this)
-        );
-      },
-
-      setVideoPlayer(visibility) {
-        document.getElementById('VideoWrapper').style.visibility = visibility;
-      },
-    });
-  };
-</script>
+<head>
+  <title>AR</title>
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+  />
+  <script src="assets\JS\aframe-master.min.js"></script>
+  <script src="assets\JS\aframe-ar-nft.js"></script>
+  <script>
+    window.onload = function () {
+      AFRAME.registerComponent('videohandler', {
+        schema: {
+          video: { type: 'selector' },
+        },
+        init: function () {
+          var marker = this.el;
+          var videoPlayer = document.getElementById('VideoPlayer');
+          var btnClose = document.getElementById('Close');
+          marker.addEventListener(
+            'markerFound',
+            function () {
+              this.setVideoPlayer('visible');
+              videoPlayer.setAttribute(
+                'src',
+                this.data.video.getAttribute('src')
+              );
+  
+              btnClose.addEventListener('click', () => {
+                videoPlayer.pause();
+                videoPlayer.currentTime = 0;
+                this.setVideoPlayer('hidden');
+              });
+            }.bind(this)
+          );
+        },
+  
+        setVideoPlayer(visibility) {
+          document.getElementById('VideoWrapper').style.visibility = visibility;
+        },
+      });
+    };
+  </script>
+</head>
 
 <style>
   .arjs-loader {
