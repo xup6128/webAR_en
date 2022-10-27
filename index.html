@@ -1,3 +1,5 @@
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
 <script src="assets\JS\aframe-master.min.js"></script>
 <script src="assets\JS\aframe-ar-nft.js"></script>
 
@@ -26,9 +28,6 @@
               this.setVideoPlayer('hidden');
             });
 
-            videoPlayer.addEventListener('ended', () => {
-              setTimeout(() => this.setVideoPlayer('hidden'), 500);
-            });
           }.bind(this)
         );
       },
@@ -136,23 +135,18 @@
       url="assets\nft\pinball\description"
     >
     </a-nft>
-
     <a-entity camera></a-entity>
   </a-scene>
   <div id="VideoWrapper">
     <div id="Close"><i class="close"></i></div>
-    <div>
-      <video
-        id="VideoPlayer"
-        style="border-radius: 0.5rem; background-color: black; opacity: 0.6"
-        width="100%"
-        height="auto"
-        controls
-        autoplay
-        muted
-        response-type="arraybuffer"
-        crossorigin
-      ></video>
-    </div>
+    <video
+      id="VideoPlayer"
+      style="border-radius: 0.5rem; background-color: black; opacity: 0.6"
+      width="100%"
+      height="auto"
+      controls
+      response-type="arraybuffer"
+      crossorigin
+    ></video>
   </div>
 </body>
