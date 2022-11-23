@@ -53,20 +53,6 @@
     >
       <a-assets timeout="8000">
         <video
-          src="assets\video\scream.mp4"
-          preload="auto"
-          id="scream"
-          response-type="arraybuffer"
-          crossorigin
-        ></video>
-        <video
-          src="assets\video\pinball.mp4"
-          preload="auto"
-          id="pinball"
-          response-type="arraybuffer"
-          crossorigin
-        ></video>
-        <video
           src="assets\video\product1.mp4"
           preload="auto"
           id="product1"
@@ -86,16 +72,11 @@
 
       <a-entity
         mindar-image-target="targetIndex: 0"
-        videohandler="video: #pinball"
+        videohandler="video: #product1"
       >
       </a-entity>
       <a-entity
         mindar-image-target="targetIndex: 1"
-        videohandler="video: #scream"
-      >
-      </a-entity>
-      <a-entity
-        mindar-image-target="targetIndex: 2"
         videohandler="video: #product2"
       >
       </a-entity>
